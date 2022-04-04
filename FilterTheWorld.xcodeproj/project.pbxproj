@@ -11,6 +11,16 @@
 		92B9CC6C27FA5E9000EAB14D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC6B27FA5E9000EAB14D /* ContentView.swift */; };
 		92B9CC6E27FA5E9000EAB14D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92B9CC6D27FA5E9000EAB14D /* Assets.xcassets */; };
 		92B9CC7127FA5E9000EAB14D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92B9CC7027FA5E9000EAB14D /* Preview Assets.xcassets */; };
+		92B9CC7927FA726600EAB14D /* CameraError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC7827FA726600EAB14D /* CameraError.swift */; };
+		92B9CC7C27FA728200EAB14D /* CGImageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC7B27FA728200EAB14D /* CGImageExtension.swift */; };
+		92B9CC7F27FA731500EAB14D /* FrameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC7E27FA731500EAB14D /* FrameView.swift */; };
+		92B9CC8127FA75A200EAB14D /* CameraManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8027FA75A200EAB14D /* CameraManager.swift */; };
+		92B9CC8527FA7EDD00EAB14D /* FrameManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8427FA7EDD00EAB14D /* FrameManager.swift */; };
+		92B9CC8827FA82E500EAB14D /* ContentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8727FA82E500EAB14D /* ContentViewModel.swift */; };
+		92B9CC8A27FA872B00EAB14D /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8927FA872B00EAB14D /* ErrorView.swift */; };
+		92B9CC8C27FA87AC00EAB14D /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8B27FA87AC00EAB14D /* ControlView.swift */; };
+		92B9CC8E27FA87C900EAB14D /* ToggleButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8D27FA87C900EAB14D /* ToggleButton.swift */; };
+		92B9CC9027FA9C5600EAB14D /* MotionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC8F27FA9C5600EAB14D /* MotionManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +29,16 @@
 		92B9CC6B27FA5E9000EAB14D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		92B9CC6D27FA5E9000EAB14D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		92B9CC7027FA5E9000EAB14D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		92B9CC7827FA726600EAB14D /* CameraError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraError.swift; sourceTree = "<group>"; };
+		92B9CC7B27FA728200EAB14D /* CGImageExtension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGImageExtension.swift; sourceTree = "<group>"; };
+		92B9CC7E27FA731500EAB14D /* FrameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameView.swift; sourceTree = "<group>"; };
+		92B9CC8027FA75A200EAB14D /* CameraManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraManager.swift; sourceTree = "<group>"; };
+		92B9CC8427FA7EDD00EAB14D /* FrameManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FrameManager.swift; sourceTree = "<group>"; };
+		92B9CC8727FA82E500EAB14D /* ContentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewModel.swift; sourceTree = "<group>"; };
+		92B9CC8927FA872B00EAB14D /* ErrorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
+		92B9CC8B27FA87AC00EAB14D /* ControlView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		92B9CC8D27FA87C900EAB14D /* ToggleButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ToggleButton.swift; sourceTree = "<group>"; };
+		92B9CC8F27FA9C5600EAB14D /* MotionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,6 +55,7 @@
 		92B9CC5D27FA5E9000EAB14D = {
 			isa = PBXGroup;
 			children = (
+				92B9CC8F27FA9C5600EAB14D /* MotionManager.swift */,
 				92B9CC6827FA5E9000EAB14D /* FilterTheWorld */,
 				92B9CC6727FA5E9000EAB14D /* Products */,
 			);
@@ -51,8 +72,11 @@
 		92B9CC6827FA5E9000EAB14D /* FilterTheWorld */ = {
 			isa = PBXGroup;
 			children = (
+				92B9CC8627FA82CD00EAB14D /* ViewModels */,
+				92B9CC7D27FA72B800EAB14D /* Views */,
+				92B9CC7A27FA727700EAB14D /* Extensions */,
+				92B9CC7727FA725A00EAB14D /* Camera */,
 				92B9CC6927FA5E9000EAB14D /* FilterTheWorldApp.swift */,
-				92B9CC6B27FA5E9000EAB14D /* ContentView.swift */,
 				92B9CC6D27FA5E9000EAB14D /* Assets.xcassets */,
 				92B9CC6F27FA5E9000EAB14D /* Preview Content */,
 			);
@@ -65,6 +89,44 @@
 				92B9CC7027FA5E9000EAB14D /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		92B9CC7727FA725A00EAB14D /* Camera */ = {
+			isa = PBXGroup;
+			children = (
+				92B9CC7827FA726600EAB14D /* CameraError.swift */,
+				92B9CC8027FA75A200EAB14D /* CameraManager.swift */,
+				92B9CC8427FA7EDD00EAB14D /* FrameManager.swift */,
+			);
+			path = Camera;
+			sourceTree = "<group>";
+		};
+		92B9CC7A27FA727700EAB14D /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				92B9CC7B27FA728200EAB14D /* CGImageExtension.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		92B9CC7D27FA72B800EAB14D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				92B9CC8927FA872B00EAB14D /* ErrorView.swift */,
+				92B9CC6B27FA5E9000EAB14D /* ContentView.swift */,
+				92B9CC8B27FA87AC00EAB14D /* ControlView.swift */,
+				92B9CC7E27FA731500EAB14D /* FrameView.swift */,
+				92B9CC8D27FA87C900EAB14D /* ToggleButton.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		92B9CC8627FA82CD00EAB14D /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				92B9CC8727FA82E500EAB14D /* ContentViewModel.swift */,
+			);
+			path = ViewModels;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -137,8 +199,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92B9CC8827FA82E500EAB14D /* ContentViewModel.swift in Sources */,
 				92B9CC6C27FA5E9000EAB14D /* ContentView.swift in Sources */,
 				92B9CC6A27FA5E9000EAB14D /* FilterTheWorldApp.swift in Sources */,
+				92B9CC7927FA726600EAB14D /* CameraError.swift in Sources */,
+				92B9CC8C27FA87AC00EAB14D /* ControlView.swift in Sources */,
+				92B9CC7F27FA731500EAB14D /* FrameView.swift in Sources */,
+				92B9CC8127FA75A200EAB14D /* CameraManager.swift in Sources */,
+				92B9CC9027FA9C5600EAB14D /* MotionManager.swift in Sources */,
+				92B9CC8527FA7EDD00EAB14D /* FrameManager.swift in Sources */,
+				92B9CC8E27FA87C900EAB14D /* ToggleButton.swift in Sources */,
+				92B9CC8A27FA872B00EAB14D /* ErrorView.swift in Sources */,
+				92B9CC7C27FA728200EAB14D /* CGImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,11 +342,13 @@
 				DEVELOPMENT_TEAM = 89U6PQRFL7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need access to camera to filter the world";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -299,11 +373,13 @@
 				DEVELOPMENT_TEAM = 89U6PQRFL7;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSCameraUsageDescription = "Need access to camera to filter the world";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

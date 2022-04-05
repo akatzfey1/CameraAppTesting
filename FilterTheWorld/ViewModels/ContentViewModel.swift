@@ -20,12 +20,14 @@ class ContentViewModel: ObservableObject {
     var comicFilter = false
     var monoFilter = false
     var crystalFilter = false
+    var changeCamera = false
     var dollyZoom = false
     var currentZoomFactor = 1.0
     var zoomRateMagnitude = 0.013
     
     private let context = CIContext()
     
+    private var cameraFlipped = false
     private var currentZoomSpeed: Double = 0.0
     private let speedDamping: Double = 0.01
     private let maxSpeed: Double = 1.0
@@ -60,6 +62,12 @@ class ContentViewModel: ObservableObject {
                     ciImage = ciImage.applyingFilter("CICrystallize")
                 }
                 
+                if self.changeCamera {
+                    self.cameraManager.changeCamera()
+                    self.changeCamera = false
+                    self.cameraFlipped.toggle()
+                }
+                
                 return self.context.createCGImage(ciImage, from: ciImage.extent)
             }
             .assign(to: &$frame)
@@ -91,7 +99,7 @@ class ContentViewModel: ObservableObject {
         }
         print(currentZoomSpeed)
         currentZoomSpeed = currentZoomSpeed.clamped(to: -maxSpeed...maxSpeed)
-        currentZoomFactor += currentZoomSpeed//CGFloat(smooth(0.5, currentZoomSpeed, Double(currentZoomFactor)))
+        currentZoomFactor += cameraFlipped ? -currentZoomSpeed : currentZoomSpeed//CGFloat(smooth(0.5, currentZoomSpeed, Double(currentZoomFactor)))
         currentZoomFactor = currentZoomFactor.clamped(to: 1.0...5.0)
         self.zoom(with: self.currentZoomFactor)
     }

@@ -28,6 +28,7 @@ struct ContentView: View {
                     comicSelected: $model.comicFilter,
                     monoSelected: $model.monoFilter,
                     crystalSelected: $model.crystalFilter,
+                    changeCamera: $model.changeCamera,
                     dollyZoomSelected: $model.dollyZoom,
                     zoomFactor: $model.currentZoomFactor,
                     zoomRateMagnitude: $model.zoomRateMagnitude

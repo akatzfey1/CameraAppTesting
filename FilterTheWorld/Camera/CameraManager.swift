@@ -22,6 +22,8 @@ class CameraManager: ObservableObject {
     
     @objc dynamic var videoDeviceInput: AVCaptureDeviceInput!
     
+    private let videoDeviceDiscoverySession = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera, .builtInDualCamera, .builtInTrueDepthCamera], mediaType: .video, position: .unspecified)
+    
     enum Status {
         case unconfigured
         case configured
@@ -38,7 +40,7 @@ class CameraManager: ObservableObject {
     private func configure() {
         checkPermissions()
         sessionQueue.async {
-            self.configureCaptureSession()
+            self.configureCaptureSession(position: .front)
             self.session.startRunning()
         }
     }
@@ -80,7 +82,7 @@ class CameraManager: ObservableObject {
         }
     }
     
-    private func configureCaptureSession() {
+    private func configureCaptureSession(position: AVCaptureDevice.Position) {
         
         guard status == .unconfigured else {
             return
@@ -93,7 +95,7 @@ class CameraManager: ObservableObject {
         let device = AVCaptureDevice.default(
             .builtInWideAngleCamera,
             for: .video,
-            position: .front)
+            position: position)
         guard let camera = device else {
             set (error: .cameraUnavailable)
             status = .failed
@@ -124,6 +126,7 @@ class CameraManager: ObservableObject {
             
             let videoConnection = videoOutput.connection(with: .video)
             videoConnection?.videoOrientation = .portrait
+            videoConnection?.isVideoMirrored = false
             
         } else {
             set(error: .cannotAddOutput)
@@ -132,6 +135,86 @@ class CameraManager: ObservableObject {
         }
         
         status = .configured
+    }
+    
+    public func changeCamera() {
+        
+        sessionQueue.async {
+
+            let currentVideoDevice = self.videoDeviceInput.device
+            let currentPosition = currentVideoDevice.position
+
+            let preferredPosition: AVCaptureDevice.Position
+            let preferredDeviceType: AVCaptureDevice.DeviceType
+
+            switch currentPosition {
+            case .unspecified, .front:
+                preferredPosition = .back
+                preferredDeviceType = .builtInWideAngleCamera
+
+            case .back:
+                preferredPosition = .front
+                preferredDeviceType = .builtInWideAngleCamera
+
+            @unknown default:
+                print("Unknown capture position. Defaulting to back, dual-camera.")
+                preferredPosition = .back
+                preferredDeviceType = .builtInWideAngleCamera
+            }
+            let devices = self.videoDeviceDiscoverySession.devices
+            var newVideoDevice: AVCaptureDevice? = nil
+
+            // First, seek a device with both the preferred position and device type. Otherwise, seek a device with only the preferred position.
+            if let device = devices.first(where: { $0.position == preferredPosition && $0.deviceType == preferredDeviceType }) {
+                newVideoDevice = device
+            } else if let device = devices.first(where: { $0.position == preferredPosition }) {
+                newVideoDevice = device
+            }
+
+            if let videoDevice = newVideoDevice {
+                do {
+                    let videoDeviceInput = try AVCaptureDeviceInput(device: videoDevice)
+
+                    self.session.beginConfiguration()
+
+                    // Remove the existing device input first, because AVCaptureSession doesn't support
+                    // simultaneous use of the rear and front cameras.
+                    self.session.removeInput(self.videoDeviceInput)
+
+                    if self.session.canAddInput(videoDeviceInput) {
+                        self.session.addInput(videoDeviceInput)
+                        self.videoDeviceInput = videoDeviceInput
+                    } else {
+                        self.session.addInput(self.videoDeviceInput)
+                    }
+                    
+                    self.session.removeOutput(self.videoOutput)
+                    
+                    if self.session.canAddOutput(self.videoOutput) {
+                        self.session.addOutput(self.videoOutput)
+                        
+                        self.videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
+                        
+                        let videoConnection = self.videoOutput.connection(with: .video)
+                        videoConnection?.videoOrientation = .portrait
+                        if preferredPosition == .back {
+                            videoConnection?.isVideoMirrored = true
+                        } else {
+                            videoConnection?.isVideoMirrored = false
+                        }
+                        
+                    } else {
+                        self.set(error: .cannotAddOutput)
+                        self.status = .failed
+                        return
+                    }
+
+                    self.session.commitConfiguration()
+                } catch {
+                    print("Error occurred while creating video device input: \(error)")
+                }
+            }
+        }
     }
     
     func set(

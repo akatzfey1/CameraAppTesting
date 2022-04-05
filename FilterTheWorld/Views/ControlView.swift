@@ -36,6 +36,7 @@ struct ControlView: View {
     @Binding var comicSelected: Bool
     @Binding var monoSelected: Bool
     @Binding var crystalSelected: Bool
+    @Binding var changeCamera: Bool
     @Binding var dollyZoomSelected: Bool
     @Binding var zoomFactor: Double
     @Binding var zoomRateMagnitude: Double
@@ -56,7 +57,7 @@ struct ControlView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 0)
             
-            Text("Zoom:")
+            Text("Zoom: \(String(format: "%.2f", zoomFactor))")
                 .padding(0)
             Slider(value: $zoomFactor, in: 1.0...5.0) {
                 Text("Zoom")
@@ -68,8 +69,20 @@ struct ControlView: View {
             .padding(.horizontal, 20)
             .padding(.vertical, 0)
             
-            ToggleButton(selected: $dollyZoomSelected, label: "Dolly Zoom")
-                .padding()
+            HStack {
+                ToggleButton(selected: $dollyZoomSelected, label: "Dolly Zoom")
+                    .padding()
+                
+                Button {
+                    print("changing camera")
+                    changeCamera = true
+                } label: {
+                    Image(systemName: "arrow.triangle.2.circlepath.camera")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width:35, height: 35)
+                }
+            }
             
             HStack(spacing: 12) {
                 ToggleButton(selected: $comicSelected, label: "Comic")
@@ -91,6 +104,7 @@ struct ControlView_Previews: PreviewProvider {
                 comicSelected: .constant(false),
                 monoSelected: .constant(true),
                 crystalSelected: .constant(true),
+                changeCamera: .constant(false),
                 dollyZoomSelected: .constant(false),
                 zoomFactor: .constant(1.0),
                 zoomRateMagnitude: .constant(0.013))

@@ -33,33 +33,67 @@
 import SwiftUI
 
 struct ControlView: View {
-  @Binding var comicSelected: Bool
-  @Binding var monoSelected: Bool
-  @Binding var crystalSelected: Bool
-
-  var body: some View {
-    VStack {
-      Spacer()
-
-      HStack(spacing: 12) {
-        ToggleButton(selected: $comicSelected, label: "Comic")
-        ToggleButton(selected: $monoSelected, label: "Mono")
-        ToggleButton(selected: $crystalSelected, label: "Crystal")
-      }
+    @Binding var comicSelected: Bool
+    @Binding var monoSelected: Bool
+    @Binding var crystalSelected: Bool
+    @Binding var dollyZoomSelected: Bool
+    @Binding var zoomFactor: Double
+    @Binding var zoomRateMagnitude: Double
+    
+    var body: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            
+            Text("Dolly Zoom Factor: \(String(format: "%.3f", zoomRateMagnitude))")
+                .padding(0)
+            Slider(value: $zoomRateMagnitude, in: 0.001...0.03) {
+                Text("Zoom")
+            } minimumValueLabel: {
+                Text("0.001")
+            } maximumValueLabel: {
+                Text("0.03")
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 0)
+            
+            Text("Zoom:")
+                .padding(0)
+            Slider(value: $zoomFactor, in: 1.0...5.0) {
+                Text("Zoom")
+            } minimumValueLabel: {
+                Text("1.0")
+            } maximumValueLabel: {
+                Text("5.0")
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 0)
+            
+            ToggleButton(selected: $dollyZoomSelected, label: "Dolly Zoom")
+                .padding()
+            
+            HStack(spacing: 12) {
+                ToggleButton(selected: $comicSelected, label: "Comic")
+                ToggleButton(selected: $monoSelected, label: "Mono")
+                ToggleButton(selected: $crystalSelected, label: "Crystal")
+            }
+        }
+        .preferredColorScheme(.dark)
     }
-  }
 }
 
 struct ControlView_Previews: PreviewProvider {
-  static var previews: some View {
-    ZStack {
-      Color.black
-        .edgesIgnoringSafeArea(.all)
-
-      ControlView(
-        comicSelected: .constant(false),
-        monoSelected: .constant(true),
-        crystalSelected: .constant(true))
+    static var previews: some View {
+        ZStack {
+            Color.black
+                .edgesIgnoringSafeArea(.all)
+            
+            ControlView(
+                comicSelected: .constant(false),
+                monoSelected: .constant(true),
+                crystalSelected: .constant(true),
+                dollyZoomSelected: .constant(false),
+                zoomFactor: .constant(1.0),
+                zoomRateMagnitude: .constant(0.013))
+        }
     }
-  }
 }

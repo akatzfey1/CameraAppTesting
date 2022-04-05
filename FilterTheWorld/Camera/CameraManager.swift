@@ -157,4 +157,8 @@ class CameraManager: ObservableObject {
         }
     }
     
+    func videoIsConnected() -> Bool {
+        return self.videoDeviceInput.device.isConnected
+    }
+    
 }

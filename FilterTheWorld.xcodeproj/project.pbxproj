@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		92B1455A27FBA70F00FEA13A /* BindingExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1455927FBA70F00FEA13A /* BindingExtension.swift */; };
+		92B1455C27FBAD4700FEA13A /* ComparableExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B1455B27FBAD4700FEA13A /* ComparableExtension.swift */; };
 		92B9CC6A27FA5E9000EAB14D /* FilterTheWorldApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC6927FA5E9000EAB14D /* FilterTheWorldApp.swift */; };
 		92B9CC6C27FA5E9000EAB14D /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92B9CC6B27FA5E9000EAB14D /* ContentView.swift */; };
 		92B9CC6E27FA5E9000EAB14D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 92B9CC6D27FA5E9000EAB14D /* Assets.xcassets */; };
@@ -24,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		92B1455927FBA70F00FEA13A /* BindingExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BindingExtension.swift; sourceTree = "<group>"; };
+		92B1455B27FBAD4700FEA13A /* ComparableExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComparableExtension.swift; sourceTree = "<group>"; };
 		92B9CC6627FA5E9000EAB14D /* FilterTheWorld.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FilterTheWorld.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		92B9CC6927FA5E9000EAB14D /* FilterTheWorldApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterTheWorldApp.swift; sourceTree = "<group>"; };
 		92B9CC6B27FA5E9000EAB14D /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -105,6 +109,8 @@
 			isa = PBXGroup;
 			children = (
 				92B9CC7B27FA728200EAB14D /* CGImageExtension.swift */,
+				92B1455927FBA70F00FEA13A /* BindingExtension.swift */,
+				92B1455B27FBAD4700FEA13A /* ComparableExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -202,6 +208,7 @@
 				92B9CC8827FA82E500EAB14D /* ContentViewModel.swift in Sources */,
 				92B9CC6C27FA5E9000EAB14D /* ContentView.swift in Sources */,
 				92B9CC6A27FA5E9000EAB14D /* FilterTheWorldApp.swift in Sources */,
+				92B1455C27FBAD4700FEA13A /* ComparableExtension.swift in Sources */,
 				92B9CC7927FA726600EAB14D /* CameraError.swift in Sources */,
 				92B9CC8C27FA87AC00EAB14D /* ControlView.swift in Sources */,
 				92B9CC7F27FA731500EAB14D /* FrameView.swift in Sources */,
@@ -210,6 +217,7 @@
 				92B9CC8527FA7EDD00EAB14D /* FrameManager.swift in Sources */,
 				92B9CC8E27FA87C900EAB14D /* ToggleButton.swift in Sources */,
 				92B9CC8A27FA872B00EAB14D /* ErrorView.swift in Sources */,
+				92B1455A27FBA70F00FEA13A /* BindingExtension.swift in Sources */,
 				92B9CC7C27FA728200EAB14D /* CGImageExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

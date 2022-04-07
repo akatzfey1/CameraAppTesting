@@ -46,8 +46,7 @@ struct ContentView: View {
                             .padding()
                         
                         Button {
-                            print("changing camera")
-                            model.changeCamera = true
+                            model.changeCam()
                         } label: {
                             Image(systemName: "arrow.triangle.2.circlepath.camera")
                                 .resizable()

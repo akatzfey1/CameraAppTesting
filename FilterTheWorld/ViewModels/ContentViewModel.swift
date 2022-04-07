@@ -5,6 +5,7 @@
 //  Created by Alexander Katzfey on 4/3/22.
 //
 
+import Combine
 import CoreImage
 import Foundation
 
@@ -19,7 +20,6 @@ class ContentViewModel: ObservableObject {
     @Published var comicFilter = false
     @Published var monoFilter = false
     @Published var crystalFilter = false
-    @Published var changeCamera = false
     @Published var dollyZoom = false
     @Published var currentZoomFactor = 1.0
     @Published var zoomRateMagnitude = 0.013
@@ -29,6 +29,7 @@ class ContentViewModel: ObservableObject {
     private let motionManager = MotionManager.shared
     
     private let context = CIContext()
+    private var cancellableSet: Set<AnyCancellable> = []
     
     private var cameraFlipped = false
     private var currentZoomSpeed: Double = 0.0
@@ -39,6 +40,12 @@ class ContentViewModel: ObservableObject {
         setupSubscriptions()
     }
     
+    public func changeCam() {
+        print("Changing camera: \(self.cameraFlipped)")
+        self.cameraManager.changeCamera()
+        self.cameraFlipped.toggle()
+    }
+    
     func setupSubscriptions() {
         cameraManager.$error
             .receive(on: RunLoop.main)
@@ -47,7 +54,6 @@ class ContentViewModel: ObservableObject {
         
         frameManager.$current
             .receive(on: RunLoop.main)
-            .compactMap { $0 }
             .compactMap { buffer in
                 guard let image = CGImage.create(from: buffer) else {
                     return nil
@@ -65,12 +71,6 @@ class ContentViewModel: ObservableObject {
                     ciImage = ciImage.applyingFilter("CICrystallize")
                 }
                 
-                if self.changeCamera {
-                    self.cameraManager.changeCamera()
-                    self.changeCamera = false
-                    self.cameraFlipped.toggle()
-                }
-                
                 return self.context.createCGImage(ciImage, from: ciImage.extent)
             }
             .assign(to: &$frame)
@@ -81,13 +81,19 @@ class ContentViewModel: ObservableObject {
                 if self.dollyZoom {
                     self.calcDollyZoom()
                 } else if self.cameraManager.videoIsConnected() {
-                    self.zoom(with: self.currentZoomFactor)
                     self.currentZoomSpeed = 0.0
                 }
                 
                 return axis
             }
             .assign(to: &$zAxisMovement)
+        
+        self.$currentZoomFactor
+            .receive(on: RunLoop.main)
+            .sink {
+                self.zoom(with: $0)
+            }
+            .store(in: &cancellableSet)
     }
     
     func calcDollyZoom() {

@@ -24,15 +24,44 @@ struct ContentView: View {
                     Spacer()
                 }
                 
-                ControlView(
-                    comicSelected: $model.comicFilter,
-                    monoSelected: $model.monoFilter,
-                    crystalSelected: $model.crystalFilter,
-                    changeCamera: $model.changeCamera,
-                    dollyZoomSelected: $model.dollyZoom,
-                    zoomFactor: $model.currentZoomFactor,
-                    zoomRateMagnitude: $model.zoomRateMagnitude
-                )
+                VStack(spacing: 0) {
+                    Spacer()
+                    
+                    LabeledSlider(
+                        sliderVal: $model.zoomRateMagnitude,
+                        sliderLabel: "Dolly Zoom Factor:",
+                        format: "%.3f",
+                        minSliderVal: 0.001,
+                        maxSliderVal: 0.03)
+                    
+                    LabeledSlider(
+                        sliderVal: $model.currentZoomFactor,
+                        sliderLabel: "Zoom:",
+                        format: "%.2f",
+                        minSliderVal: 1.0,
+                        maxSliderVal: 5.0)
+                    
+                    HStack {
+                        ToggleButton(selected: $model.dollyZoom, label: "Dolly Zoom")
+                            .padding()
+                        
+                        Button {
+                            print("changing camera")
+                            model.changeCamera = true
+                        } label: {
+                            Image(systemName: "arrow.triangle.2.circlepath.camera")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width:35, height: 35)
+                        }
+                    }
+                    
+                    HStack(spacing: 12) {
+                        ToggleButton(selected: $model.comicFilter, label: "Comic")
+                        ToggleButton(selected: $model.monoFilter, label: "Mono")
+                        ToggleButton(selected: $model.crystalFilter, label: "Crystal")
+                    }
+                }
                                 
             }
             .preferredColorScheme(.dark)
@@ -40,8 +69,8 @@ struct ContentView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        ContentView()
+//    }
+//}

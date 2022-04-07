@@ -17,7 +17,9 @@ class MotionManager: ObservableObject {
     
     private var manager: CMMotionManager
     
-    init() {
+    static let shared = MotionManager()
+    
+    private init() {
         self.manager = CMMotionManager()
         self.manager.deviceMotionUpdateInterval = 1/60
         self.manager.startDeviceMotionUpdates(to: .main) { (motionData, error) in

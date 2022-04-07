@@ -9,21 +9,24 @@ import CoreImage
 import Foundation
 
 class ContentViewModel: ObservableObject {
+    
+    // Outputs
     @Published var frame: CGImage?
     @Published var error: Error?
     @Published var zAxisMovement: Double = 0.0
     
+    // Inputs
+    @Published var comicFilter = false
+    @Published var monoFilter = false
+    @Published var crystalFilter = false
+    @Published var changeCamera = false
+    @Published var dollyZoom = false
+    @Published var currentZoomFactor = 1.0
+    @Published var zoomRateMagnitude = 0.013
+    
     private let frameManager = FrameManager.shared
     private let cameraManager = CameraManager.shared
-    private let motionManager = MotionManager()
-    
-    var comicFilter = false
-    var monoFilter = false
-    var crystalFilter = false
-    var changeCamera = false
-    var dollyZoom = false
-    var currentZoomFactor = 1.0
-    var zoomRateMagnitude = 0.013
+    private let motionManager = MotionManager.shared
     
     private let context = CIContext()
     

@@ -40,7 +40,7 @@ class CameraManager: ObservableObject {
     private func configure() {
         checkPermissions()
         sessionQueue.async {
-            self.configureCaptureSession(position: .front)
+            self.configureCaptureSession()
             self.session.startRunning()
         }
     }
@@ -82,7 +82,7 @@ class CameraManager: ObservableObject {
         }
     }
     
-    private func configureCaptureSession(position: AVCaptureDevice.Position) {
+    private func configureCaptureSession() {
         
         guard status == .unconfigured else {
             return
@@ -95,7 +95,7 @@ class CameraManager: ObservableObject {
         let device = AVCaptureDevice.default(
             .builtInWideAngleCamera,
             for: .video,
-            position: position)
+            position: .front)
         guard let camera = device else {
             set (error: .cameraUnavailable)
             status = .failed
@@ -188,45 +188,31 @@ class CameraManager: ObservableObject {
                         self.session.addInput(self.videoDeviceInput)
                     }
                     
-                    self.session.removeOutput(self.videoOutput)
-                    
-                    if self.session.canAddOutput(self.videoOutput) {
-                        self.session.addOutput(self.videoOutput)
-                        
-                        self.videoOutput.videoSettings = [kCVPixelBufferPixelFormatTypeKey as String: kCVPixelFormatType_32BGRA]
-                        
-                        let videoConnection = self.videoOutput.connection(with: .video)
-                        videoConnection?.videoOrientation = .portrait
-                        if preferredPosition == .back {
-                            videoConnection?.isVideoMirrored = true
-                        } else {
-                            videoConnection?.isVideoMirrored = false
-                        }
-                        
+                    // Set up videoOutput with correct orientation and mirroring
+                    let videoConnection = self.videoOutput.connection(with: .video)
+                    videoConnection?.videoOrientation = .portrait
+                    if preferredPosition == .back {
+                        videoConnection?.isVideoMirrored = true
                     } else {
-                        self.set(error: .cannotAddOutput)
-                        self.status = .failed
-                        return
+                        videoConnection?.isVideoMirrored = false
                     }
 
                     self.session.commitConfiguration()
+                    
                 } catch {
                     print("Error occurred while creating video device input: \(error)")
+                    self.set (error: .cannotAddInput)
+                    self.status = .failed
                 }
+            } else {
+                print("Could not find a video camera device")
+                self.set (error: .cameraUnavailable)
+                self.status = .failed
             }
         }
     }
     
-    func set(
-        _ delegate: AVCaptureVideoDataOutputSampleBufferDelegate,
-        queue: DispatchQueue
-    ) {
-        sessionQueue.async {
-            self.videoOutput.setSampleBufferDelegate(delegate, queue: queue)
-        }
-    }
-    
-    func set(zoom: CGFloat) {
+    public func set(zoom: CGFloat) {
         let factor = zoom < 1 ? 1 : zoom
         let device = self.videoDeviceInput.device
         
@@ -240,8 +226,18 @@ class CameraManager: ObservableObject {
         }
     }
     
-    func videoIsConnected() -> Bool {
+    public func videoIsConnected() -> Bool {
         return self.videoDeviceInput.device.isConnected
     }
+    
+    func set(
+        _ delegate: AVCaptureVideoDataOutputSampleBufferDelegate,
+        queue: DispatchQueue
+    ) {
+        sessionQueue.async {
+            self.videoOutput.setSampleBufferDelegate(delegate, queue: queue)
+        }
+    }
+    
     
 }

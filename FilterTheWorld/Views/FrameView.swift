@@ -23,6 +23,7 @@ struct FrameView: View {
                         alignment: .center)
                     .clipped()
             }
+            .ignoresSafeArea()
         } else {
             Color.black
         }
